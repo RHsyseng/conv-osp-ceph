@@ -1,0 +1,35 @@
+heat_template_version: 2014-10-16
+
+description: >
+  If deploying on hardware that previously had OSDs, the FSID can linger
+  resulting in a deploy with 0 OSDs and 'ceph-disk list' returning an
+  unknown cluster error. This workaround wipes the partition tables of 
+  known OSD and journal disks on first boot. It uses hardcoded values 
+  based on my servers so learn your hardware first using 'fdisk -l'
+  and 'sgdisk -p /dev/sdX' and then update the script below before 
+  running.   
+
+resources:
+  userdata:
+    type: OS::Heat::MultipartMime
+    properties:
+      parts:
+      - config: {get_resource: clean_osd_config}
+
+  clean_osd_config:
+    type: OS::Heat::SoftwareConfig
+    properties:
+      config: |
+        #!/usr/bin/env bash
+        {
+        for x in b c d e f g m n; do
+            if [ -b /dev/sd$x ]
+            then
+                sgdisk -z /dev/sd$x; 
+            fi
+        done 
+        } 2>&1 > /root/clean_osd_heat_output.txt 
+
+outputs:
+  OS::stack_id:
+    value: {get_resource: userdata}

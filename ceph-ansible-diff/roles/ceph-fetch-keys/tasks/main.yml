@@ -1,0 +1,34 @@
+---
+- name: find ceph keys
+  shell: ls -1 /etc/ceph/*.keyring | grep -v openstack
+  changed_when: false
+  register: ceph_keys
+
+- name: set keys permissions for ceph.client.openstack.keyring
+  file:
+    path: /etc/ceph/ceph.client.openstack.keyring
+    mode: 0644
+    owner: root
+    group: root
+  
+- name: set keys permissions
+  file:
+    path: "{{ item }}"
+    mode: 0600
+    owner: root
+    group: root
+  with_items:
+    - "{{ ceph_keys.stdout_lines }}"
+
+- name: copy keys to the ansible server
+  fetch:
+    src: "{{ item }}"
+    dest: "{{ fetch_directory }}/{{ fsid }}/{{ item }}"
+    flat: yes
+  run_once: true
+  with_items:
+    - "{{ ceph_keys.stdout_lines }}"
+    - /etc/ceph/ceph.client.openstack.keyring
+    - /var/lib/ceph/bootstrap-osd/ceph.keyring
+    - /var/lib/ceph/bootstrap-rgw/ceph.keyring
+    - /var/lib/ceph/bootstrap-mds/ceph.keyring

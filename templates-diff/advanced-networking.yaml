@@ -1,0 +1,84 @@
+# Enable the creation of Neutron networks for isolated Overcloud
+# traffic and configure each role to assign ports (related
+# to that role) on these networks.
+resource_registry:
+  OS::TripleO::Network::External: /home/stack/templates/network/external.yaml
+  OS::TripleO::Network::InternalApi: /home/stack/templates/network/internal_api.yaml
+  OS::TripleO::Network::StorageMgmt: /home/stack/templates/network/storage_mgmt.yaml
+  OS::TripleO::Network::Storage: /home/stack/templates/network/storage.yaml
+  OS::TripleO::Network::Tenant: /home/stack/templates/network/tenant.yaml
+
+  # Port assignments for the VIPs
+  OS::TripleO::Network::Ports::ExternalVipPort: /home/stack/templates/network/ports/vip.yaml
+  OS::TripleO::Network::Ports::InternalApiVipPort: /home/stack/templates/network/ports/vip.yaml
+  OS::TripleO::Network::Ports::StorageVipPort: /home/stack/templates/network/ports/vip.yaml
+  OS::TripleO::Network::Ports::StorageMgmtVipPort: /home/stack/templates/network/ports/vip.yaml
+  OS::TripleO::Network::Ports::TenantVipPort: /home/stack/templates/network/ports/vip.yaml
+  OS::TripleO::Network::Ports::RedisVipPort: /home/stack/templates/network/ports/vip.yaml
+
+  # Port assignments for the controller role
+  OS::TripleO::Controller::Ports::ExternalPort: /home/stack/templates/network/ports/external.yaml
+  OS::TripleO::Controller::Ports::InternalApiPort: /home/stack/templates/network/ports/internal_api.yaml
+  OS::TripleO::Controller::Ports::StoragePort: /home/stack/templates/network/ports/storage.yaml
+  OS::TripleO::Controller::Ports::StorageMgmtPort: /home/stack/templates/network/ports/storage_mgmt.yaml
+  OS::TripleO::Controller::Ports::TenantPort: /home/stack/templates/network/ports/tenant.yaml
+
+  # Port assignments for the compute role
+  OS::TripleO::Compute::Ports::InternalApiPort: /home/stack/templates/network/ports/internal_api.yaml
+  OS::TripleO::Compute::Ports::StoragePort: /home/stack/templates/network/ports/storage.yaml
+  OS::TripleO::Compute::Ports::StorageMgmtPort: /home/stack/templates/network/ports/storage_mgmt.yaml
+  OS::TripleO::Compute::Ports::TenantPort: /home/stack/templates/network/ports/tenant.yaml
+  
+  # Port assignments for the ceph storage role
+  OS::TripleO::CephStorage::Ports::StoragePort: /home/stack/templates/network/ports/storage.yaml
+  OS::TripleO::CephStorage::Ports::StorageMgmtPort: /home/stack/templates/network/ports/storage_mgmt.yaml
+
+  # Port assignments for service virtual IPs for the controller role
+  OS::TripleO::Controller::Ports::RedisVipPort: /home/stack/templates/network/ports/vip.yaml
+
+  # NIC Configs for our roles
+  OS::TripleO::Compute::Net::SoftwareConfig: /home/stack/templates/nic-configs/compute-nics.yaml
+  OS::TripleO::Controller::Net::SoftwareConfig: /home/stack/templates/nic-configs/controller-nics.yaml
+  
+parameter_defaults:
+  # Internal API used for private OpenStack Traffic
+  InternalApiNetCidr: 192.168.2.0/24
+  InternalApiAllocationPools: [{'start': '192.168.2.10', 'end': '192.168.2.200'}]
+  InternalApiNetworkVlanID: 4049
+
+  # Tenant Network Traffic - will be used for VXLAN over VLAN
+  TenantNetCidr: 192.168.3.0/24
+  TenantAllocationPools: [{'start': '192.168.3.10', 'end': '192.168.3.200'}]
+  TenantNetworkVlanID: 4050
+
+  # Public Storage Access - e.g. Nova/Glance <--> Ceph
+  StorageNetCidr: 172.16.1.0/24
+  StorageAllocationPools: [{'start': '172.16.1.10', 'end': '172.16.1.200'}]
+  StorageNetworkVlanID: 4046
+
+  # Private Storage Access - i.e. Ceph background cluster/replication
+  StorageMgmtNetCidr: 172.16.2.0/24
+  StorageMgmtAllocationPools: [{'start': '172.16.2.10', 'end': '172.16.2.200'}]
+  StorageMgmtNetworkVlanID: 4047
+
+  # External Networking Access - Public API Access
+  ExternalNetCidr: 10.19.137.0/21
+  # Leave room for floating IPs in the External allocation pool (if required)
+  ExternalAllocationPools: [{'start': '10.19.139.37', 'end': '10.19.139.48'}]
+  # Set to the router gateway on the external network
+  ExternalInterfaceDefaultRoute: 10.19.143.254
+
+  # Gateway router for the provisioning network (or Undercloud IP)
+  ControlPlaneDefaultRoute: 192.168.1.1
+  # The IP address of the EC2 metadata server. Generally the IP of the Undercloud
+  EC2MetadataIp: 192.168.1.1
+  # Define the DNS servers (maximum 2) for the overcloud nodes
+  DnsServers: ["10.19.143.247","10.19.143.248"]
+
+  # Set to "br-ex" if using floating IPs on native VLAN on bridge br-ex
+  #NeutronExternalNetworkBridge: "''"
+  NeutronExternalNetworkBridge: "br-ex"
+
+  # Customize bonding options if required
+  #BondInterfaceOvsOptions:
+  #  "bond_mode=balance-tcp lacp=active other-config:lacp-fallback-ab=true"

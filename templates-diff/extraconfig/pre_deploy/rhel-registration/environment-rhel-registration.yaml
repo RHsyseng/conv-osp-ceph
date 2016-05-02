@@ -1,0 +1,22 @@
+# Note this can be specified either in the call
+# to heat stack-create via an additional -e option
+# or via the global environment on the seed in
+# /etc/heat/environment.d/default.yaml
+parameter_defaults:
+  rhel_reg_activation_key: ""
+  rhel_reg_auto_attach: ""
+  rhel_reg_base_url: ""
+  rhel_reg_environment: ""
+  rhel_reg_force: ""
+  rhel_reg_machine_name: ""
+  rhel_reg_org: ""
+  rhel_reg_password: "RHEL_REG_PASSWORD"
+  rhel_reg_pool_id: "RHEL_REG_POOL_ID"
+  rhel_reg_release: ""
+  rhel_reg_repos: "rhel-7-server-rpms rhel-7-server-rh-common-rpms rhel-7-server-openstack-7.0-rpms rhel-ha-for-rhel-7-server-rpms rhel-7-server-optional-rpms rhel-7-server-rhceph-1.3-osd-rpms rhel-7-server-rhceph-1.3-mon-rpms"
+  rhel_reg_sat_url: ""
+  rhel_reg_server_url: ""
+  rhel_reg_service_level: ""
+  rhel_reg_user: "CDN_USERNAME"
+  rhel_reg_type: ""
+  rhel_reg_method: "portal"
