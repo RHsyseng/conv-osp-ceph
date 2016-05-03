@@ -6,10 +6,9 @@ includes the StorageMgmt network.
  cd /home/stack/
  patch -p3 < storage_mgmt_net_to_compute.patch
 ```
-## How was this diff made
+## How this diff was made
 
-The four Heat templates were modified to produce the 
-diff with the following commands. 
+Two Heat templates were modified to produce the diff with the following commands.
 ```
  cp -r /usr/share/openstack-tripleo-heat-templates ~/templates-net
  cp -r /usr/share/openstack-tripleo-heat-templates ~/templates
