@@ -3,7 +3,7 @@
 resource_registry:
   OS::TripleO::CephClusterConfig::SoftwareConfig: ../puppet/extraconfig/ceph/ceph-external-config.yaml
 
-parameters:
+parameter_defaults:
   # NOTE: These example parameters are required when using Ceph External
   CephClusterFSID: 'b007365e-cc87-11e5-a877-525400330ee0'
   CephClientKey: 'AQBtcrVWAAAAABAA4JprB4BR5klHr3mgtqmX0w=='
