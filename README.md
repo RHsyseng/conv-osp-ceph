@@ -21,6 +21,14 @@ Scripts and Templates to deploy OpenStack with Nova Computes and Ceph-OSDs runni
 10. Deploy Ceph on the same hardware with OSDs on Computes and Mons on Controllers
 11. Run `connect_osp_ceph.sh` to update `~/templates` and restart Glance, Cinder, and Nova
 
+## Branches
+
+Choose a branch that suits what you're trying to deploy; don't just
+use Master. For example:
+
+- osp7_ceph1.3 (tested May 2016)
+- osp8_ceph1.3 (in development)
+
 ## Disclaimer
 
 I work for Red Hat but this repo _by itself_ is not officially supported. 
