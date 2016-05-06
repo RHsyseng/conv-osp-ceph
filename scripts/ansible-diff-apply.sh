@@ -2,7 +2,7 @@
 # Filename:                ansible-diff-apply.sh
 # Description:             copys yml from ceph-ansible-diff
 # Supported Langauge(s):   GNU Bash 4.2.x
-# Time-stamp:              <2016-05-06 09:14:39 jfulton> 
+# Time-stamp:              <2016-05-06 11:17:17 jfulton> 
 # -------------------------------------------------------
 # Change the following based on where ceph-ansible-diff is
 # e.g. $TLD/ceph-ansible-diff
@@ -53,4 +53,17 @@ for var in ${vars[@]}; do
         sed "s/$sans_under_backslashed/$var/g" -i $conf;
     fi
 done                
+
+# update ~/ceph-ansible/rolling_update.yml from shipped defaults
+
+echo "Increasing both retries and delay in ~/ceph-ansible/rolling_update.yml to 15 (for all)"
+sed -i \
+    -e s/delay:\ '[0-9]\{1,2\}'/delay:\ 15/g \
+    -e s/retries:\ '[0-9]\{1,2\}'/retries:\ 15/g \
+    ~/ceph-ansible/rolling_update.yml
+
+echo "Updating ~/ceph-ansible/rolling_update.yml to not update ceph packages (config updates only)"
+sed -i \
+    -e s/'upgrade_ceph_packages: True'/'upgrade_ceph_packages: False'/g \
+    ~/ceph-ansible/rolling_update.yml
 
