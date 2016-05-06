@@ -2,7 +2,7 @@
 # Filename:                ansible-diff-apply.sh
 # Description:             copys yml from ceph-ansible-diff
 # Supported Langauge(s):   GNU Bash 4.2.x
-# Time-stamp:              <2016-05-01 16:43:03 jfulton> 
+# Time-stamp:              <2016-05-06 09:14:39 jfulton> 
 # -------------------------------------------------------
 # Change the following based on where ceph-ansible-diff is
 # e.g. $TLD/ceph-ansible-diff
@@ -24,7 +24,7 @@ cp $TLD/ceph-ansible-diff/group_vars/osds ~/ceph-ansible/group_vars/
 cp $TLD/ceph-ansible-diff/group_vars/mons ~/ceph-ansible/group_vars/
 
 echo "Making the following customizations to ceph-ansible"
-for f in rolling_update.yml roles/ceph-mon/tasks/ceph_keys.yml roles/ceph-mon/tasks/openstack_config.yml roles/ceph-fetch-keys/tasks/main.yml; do 
+for f in roles/ceph-mon/tasks/ceph_keys.yml roles/ceph-mon/tasks/openstack_config.yml roles/ceph-fetch-keys/tasks/main.yml; do 
     echo -e "\n";
     dist=~/ceph-ansible/$f
     new=$TLD/ceph-ansible-diff/$f
