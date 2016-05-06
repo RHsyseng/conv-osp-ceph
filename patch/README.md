@@ -6,7 +6,7 @@ includes the StorageMgmt network.
  cd /home/stack/
  patch -p3 < storage_mgmt_net_to_compute.patch
 ```
-## How as this diff made
+## How was this diff made
 
 The four Heat templates were modified to produce the 
 diff with the following commands. 
