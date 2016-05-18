@@ -158,6 +158,7 @@ fsid: b007365e-cc87-11e5-a877-525400330ee0
 #rbd_default_features: 3
 #rbd_default_map_options: rw
 #rbd_default_format: 2
+rbd_client_admin_socket_path: /var/lib/ceph
 
 ## Monitor options
 #
