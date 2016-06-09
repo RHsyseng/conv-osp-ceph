@@ -2,7 +2,7 @@
 # Filename:                heat-diff-apply.sh
 # Description:             Puts overcloud templates in place
 # Supported Langauge(s):   GNU Bash 4.2.x
-# Time-stamp:              <2016-05-05 16:29:38 jfulton> 
+# Time-stamp:              <2016-06-09 09:32:16 jfulton> 
 # -------------------------------------------------------
 # Change the following based on where tempalates-diff is
 # e.g. $TLD/templates-diff 
@@ -23,10 +23,6 @@ cp -r /usr/share/openstack-tripleo-heat-templates ~/templates/
 
 echo "Copying my templates-diff"
 cp -r $TLD/templates-diff/ ~/templates-diff
-
-echo "Applying patch to make Compute Profile contain StorageMgmtNetwork"
-cp $TLD/patch/storage_mgmt_net_to_compute.patch .
-patch -p3 < storage_mgmt_net_to_compute.patch
 
 echo "Adding yaml to make environment-specific network changes to ~/templates/"
 cp ~/templates-diff/advanced-networking.yaml ~/templates/
