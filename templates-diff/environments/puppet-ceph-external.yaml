@@ -7,7 +7,7 @@ parameter_defaults:
   # NOTE: These example parameters are required when using Ceph External
   CephClusterFSID: 'b007365e-cc87-11e5-a877-525400330ee0'
   CephClientKey: 'AQBtcrVWAAAAABAA4JprB4BR5klHr3mgtqmX0w=='
-  CephExternalMonHost: '172.16.1.5, 172.16.1.6, 172.16.1.7'
+  CephExternalMonHost: '172.16.1.201, 172.16.1.202, 172.16.1.203'
 
   # the following parameters enable Ceph backends for Cinder, Glance, and Nova
   CephClientUserName: openstack

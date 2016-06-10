@@ -2,7 +2,7 @@
 # Filename:                heat-diff-apply.sh
 # Description:             Puts overcloud templates in place
 # Supported Langauge(s):   GNU Bash 4.2.x
-# Time-stamp:              <2016-06-09 09:32:16 jfulton> 
+# Time-stamp:              <2016-06-10 12:40:05 jfulton> 
 # -------------------------------------------------------
 # Change the following based on where tempalates-diff is
 # e.g. $TLD/templates-diff 
@@ -29,6 +29,9 @@ cp ~/templates-diff/advanced-networking.yaml ~/templates/
 mkdir ~/templates/nic-configs/
 cp ~/templates-diff/nic-configs/controller-nics.yaml ~/templates/nic-configs/controller-nics.yaml
 cp ~/templates-diff/nic-configs/compute-nics.yaml ~/templates/nic-configs/compute-nics.yaml
+
+echo "Adding yaml to enable hard coded storage IPs on controllers to ~/templates/"
+cp ~/templates-diff/ips-from-pool.yaml ~/templates/ips-from-pool.yaml
 
 echo "Adding environment-specific ceph prep clean_osd.yaml and userdata_clean_osd.yaml"
 cp ~/templates-diff/clean_osd.yaml ~/templates/clean_osd.yaml

@@ -1,0 +1,9 @@
+resource_registry:
+  OS::TripleO::Controller::Ports::StoragePort: /home/stack/templates/network/ports/storage_from_pool.yaml
+
+parameter_defaults:
+  ControllerIPs:
+    storage:
+    - 172.16.1.201
+    - 172.16.1.202
+    - 172.16.1.203
