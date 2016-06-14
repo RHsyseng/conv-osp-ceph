@@ -20,8 +20,3 @@
     
 - name: Install new /etc/init.d/ceph
   template: src=../../templates/init-sysv-numa.j2 dest=/etc/init.d/ceph
-  
-- name: Restart OSDs
-  service: >
-    name=ceph
-    state=restarted
