@@ -1,0 +1,27 @@
+---
+- name: Install numactl and lstopo on OSD servers
+  yum: state=present name={{item}}
+  with_items:
+    - numactl
+    - hwloc-gui # provides lstopo
+
+- name: Get NUMA socket number
+  # have lstopo show numa node numbers and nics
+  # set the numasocket number (will always be before the nic)
+  # if the desired nic is found, then it's IRQ is the numasocket found earlier
+  # break before the next numasocket can be set
+  shell: >-
+    lstopo | tr -d [:punct:] | egrep "NUMANode|{{osd_numa_interface}}" | while read type socket_num nic ; do if [ "$type" == "NUMANode" ]; then numasocket=$(echo $socket_num | sed s/L//g); fi; if [ "$nic" == "{{osd_numa_interface}}" ]; then echo $numasocket; break; fi; done
+  register: numasocket
+  
+- set_fact:
+    want_numa_pin: 1 
+    when: osd_numa_deployment
+    
+- name: Install new /etc/init.d/ceph
+  template: src=../../templates/init-sysv-numa.j2 dest=/etc/init.d/ceph
+  
+- name: Restart OSDs
+  service: >
+    name=ceph
+    state=restarted

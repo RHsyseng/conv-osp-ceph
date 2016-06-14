@@ -130,3 +130,12 @@ raw_journal_devices:
 #ceph_osd_docker_extra_env: "CEPH_DAEMON=OSD_CEPH_DISK" # comma separated variables
 #ceph_osd_docker_devices:
 # - /dev/sdb
+
+########
+# NUMA #
+########
+osd_numa_deployment: true
+osd_numa_interface: em2   
+# Have Ceph daemon run on CPU socket with IRQ interrupts for this interface
+# This should be the NIC for the network on which the OSDs run services 
+# This interface must be in the output of lstopo
