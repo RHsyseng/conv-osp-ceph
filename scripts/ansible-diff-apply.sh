@@ -2,7 +2,7 @@
 # Filename:                ansible-diff-apply.sh
 # Description:             copys yml from ceph-ansible-diff
 # Supported Langauge(s):   GNU Bash 4.2.x
-# Time-stamp:              <2016-05-06 11:17:17 jfulton> 
+# Time-stamp:              <2016-06-13 23:23:55 jfulton> 
 # -------------------------------------------------------
 # Change the following based on where ceph-ansible-diff is
 # e.g. $TLD/ceph-ansible-diff
@@ -67,3 +67,7 @@ sed -i \
     -e s/'upgrade_ceph_packages: True'/'upgrade_ceph_packages: False'/g \
     ~/ceph-ansible/rolling_update.yml
 
+echo "Modifying playbooks for NUMA preferred OSDs on IRQ of storage NIC"
+cp $TLD/ceph-ansible-diff/roles/ceph-osd/tasks/main.yml ~/ceph-ansible/roles/ceph-osd/tasks/main.yml
+cp $TLD/ceph-ansible-diff/roles/ceph-osd/tasks/scenarios/numa.yml ~/ceph-ansible/roles/ceph-osd/tasks/scenarios/numa.yml
+cp $TLD/ceph-ansible-diff/roles/ceph-osd/templates/init-sysv-numa.j2 ~/ceph-ansible/roles/ceph-osd/templates/init-sysv-numa.j2
