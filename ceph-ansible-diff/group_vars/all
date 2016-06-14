@@ -209,9 +209,9 @@ cluster_network: 172.16.2.0/24
 #osd_scrub_end_hour: 24
 
 # Recovery tuning
-#osd_recovery_max_active: 5
-#osd_max_backfills: 2
-#osd_recovery_op_priority: 2
+osd_recovery_max_active: 3
+osd_max_backfills: 1
+osd_recovery_op_priority: 2
 #osd_recovery_max_chunk: 1048576
 #osd_recovery_threads: 1
 
