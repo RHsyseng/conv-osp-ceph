@@ -181,7 +181,7 @@ journal_size: 5120
 pool_default_pg_num: 256
 pool_default_pgp_num: 256
 pool_default_size: 3
-pool_default_min_size: 1
+pool_default_min_size: 2
 public_network: 172.16.1.0/24
 cluster_network: 172.16.2.0/24
 #osd_mkfs_type: xfs
