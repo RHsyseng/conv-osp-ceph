@@ -2,7 +2,7 @@
 # Filename:                heat-diff-apply.sh
 # Description:             Puts overcloud templates in place
 # Supported Langauge(s):   GNU Bash 4.2.x
-# Time-stamp:              <2016-06-10 12:40:05 jfulton> 
+# Time-stamp:              <2016-06-16 14:37:54 jfulton> 
 # -------------------------------------------------------
 # Change the following based on where tempalates-diff is
 # e.g. $TLD/templates-diff 
@@ -47,6 +47,9 @@ cp -f ~/templates-diff/puppet/hieradata/ceph.yaml ~/templates/puppet/hieradata/c
 
 echo "Updating environment-rhel-registration.yaml"
 cp ~/templates-diff/extraconfig/pre_deploy/rhel-registration/environment-rhel-registration.yaml ~/templates/extraconfig/pre_deploy/rhel-registration/environment-rhel-registration.yaml
+
+echo "Adding yaml to override compute defaults for reserved_host_memory and cpu_allocation_ratio"
+cp ~/templates-diff/compute_params.yaml ~/templates/compute_params.yaml
 
 timezone=$(basename $(readlink /etc/localtime))
 echo "Creating ~/templates/timezone.yaml so Overcloud nodes to have same timzone as Director ($timezone)"
