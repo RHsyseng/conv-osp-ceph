@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # Filename:                nova_mem_cpu_calc.py
 # Supported Langauge(s):   Python 2.7.x
-# Time-stamp:              <2016-06-15 20:11:35 jfulton> 
+# Time-stamp:              <2016-06-15 23:15:04 jfulton> 
 # -------------------------------------------------------
 # This program was originally written by Ben England
 # -------------------------------------------------------
@@ -49,13 +49,15 @@ try:
 except ValueError:
   usage("Non-integer input parameter")
 
+average_guest_util_percent = 100 * average_guest_util
+
 # print inputs
 print "Inputs:"
 print "- Total host RAM in GB: %d" % mem
 print "- Total host cores: %d" % cores
 print "- Ceph OSDs per host: %d" % osds
 print "- Average guest size in GB: %d" % average_guest_size
-print "- Average guest utilization: %f" % average_guest_util
+print "- Average guest utilization: %.0f%%" % average_guest_util_percent
 
 # calculate operating parameters based on memory constraints only
 left_over_mem = mem - (GB_per_OSD * osds)
