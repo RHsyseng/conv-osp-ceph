@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # Filename:                nova_mem_cpu_calc.py
 # Supported Langauge(s):   Python 2.7.x
-# Time-stamp:              <2016-06-15 23:15:04 jfulton> 
+# Time-stamp:              <2016-06-20 11:36:52 jfulton> 
 # -------------------------------------------------------
 # This program was originally written by Ben England
 # -------------------------------------------------------
@@ -56,8 +56,8 @@ print "Inputs:"
 print "- Total host RAM in GB: %d" % mem
 print "- Total host cores: %d" % cores
 print "- Ceph OSDs per host: %d" % osds
-print "- Average guest size in GB: %d" % average_guest_size
-print "- Average guest utilization: %.0f%%" % average_guest_util_percent
+print "- Average guest memory size in GB: %d" % average_guest_size
+print "- Average guest CPU utilization: %.0f%%" % average_guest_util_percent
 
 # calculate operating parameters based on memory constraints only
 left_over_mem = mem - (GB_per_OSD * osds)
@@ -77,11 +77,16 @@ print "- number of guest vCPUs allowed = %d" % int(guest_vCPUs)
 print "- nova.conf reserved_host_memory = %d MB" % nova_reserved_mem_MB
 print "- nova.conf cpu_allocation_ratio = %f" % cpu_allocation_ratio
 
-if nova_reserved_mem_MB < 0:
+if nova_reserved_mem_MB < (mem * 0.5):
     print "ERROR: you do not have enough memory to run hyperconverged!"
     sys.exit(NOTOK)
 
-if cpu_allocation_ratio < 0.0:
+if cpu_allocation_ratio < 0.5:
     print "ERROR: you do not have enough CPU to run hyperconverged!"
     sys.exit(NOTOK)
 
+if cpu_allocation_ratio > 16.0:
+    print(
+        "WARNING: do not increase VCPU overcommit ratio " + 
+        "beyond OSP8 default of 16:1")
+    sys.exit(NOTOK)
