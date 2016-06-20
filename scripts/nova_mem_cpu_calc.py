@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # Filename:                nova_mem_cpu_calc.py
 # Supported Langauge(s):   Python 2.7.x
-# Time-stamp:              <2016-06-20 11:36:52 jfulton> 
+# Time-stamp:              <2016-06-20 18:54:47 jfulton> 
 # -------------------------------------------------------
 # This program was originally written by Ben England
 # -------------------------------------------------------
@@ -72,7 +72,7 @@ cpu_allocation_ratio = guest_vCPUs / cores
 # display outputs including how to tune Nova reserved mem
 
 print "\nResults:"
-print "- number of guests allowed = %d" % number_of_guests
+print "- number of guests allowed based on memory = %d" % number_of_guests
 print "- number of guest vCPUs allowed = %d" % int(guest_vCPUs)
 print "- nova.conf reserved_host_memory = %d MB" % nova_reserved_mem_MB
 print "- nova.conf cpu_allocation_ratio = %f" % cpu_allocation_ratio
@@ -90,3 +90,5 @@ if cpu_allocation_ratio > 16.0:
         "WARNING: do not increase VCPU overcommit ratio " + 
         "beyond OSP8 default of 16:1")
     sys.exit(NOTOK)
+
+print "\nCompare \"guest vCPUs allowed\" to \"guests allowed based on memory\" for actual guest count"
