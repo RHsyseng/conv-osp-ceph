@@ -58,11 +58,7 @@ devices:
    - /dev/sde
    - /dev/sdf
    - /dev/sdg
-   - /dev/sdh
-   - /dev/sdi
-   - /dev/sdj
-   - /dev/sdk
-   
+
 # Device discovery is based on the Ansible fact 'ansible_devices'
 # which reports all the devices on a system. If chosen all the disks
 # found will be passed to ceph-disk. You should not be worried on using
@@ -101,14 +97,10 @@ raw_journal_devices:
    - /dev/sdm
    - /dev/sdm
    - /dev/sdm
-   - /dev/sdm
    - /dev/sdn
    - /dev/sdn
    - /dev/sdn
-   - /dev/sdo
-   - /dev/sdo
-   - /dev/sdo
-   
+
 # IV. Fourth scenario: use directory instead of disk for OSDs
 # Use 'true' to enable this scenario
 
