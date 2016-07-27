@@ -1,18 +1,18 @@
 diff -Naur /home/stack/templates/compute.yaml /home/stack/templates-net/compute.yaml
---- /home/stack/templates/compute.yaml	2016-04-19 20:14:53.391052555 -0400
-+++ /home/stack/templates-net/compute.yaml	2016-04-19 20:17:27.403412443 -0400
-@@ -324,6 +324,11 @@
+--- /home/stack/templates/compute.yaml	2016-07-27 15:38:05.482477887 -0400
++++ /home/stack/templates-net/compute.yaml	2016-07-27 15:39:44.490794267 -0400
+@@ -323,6 +323,11 @@
+     type: OS::TripleO::Compute::Ports::StoragePort
      properties:
        ControlPlaneIP: {get_attr: [NovaCompute, networks, ctlplane, 0]}
- 
++      
 +  StorageMgmtPort:
 +    type: OS::TripleO::Compute::Ports::StorageMgmtPort
 +    properties:
 +      ControlPlaneIP: {get_attr: [NovaCompute, networks, ctlplane, 0]}
-+
+ 
    TenantPort:
      type: OS::TripleO::Compute::Ports::TenantPort
-     properties:
 @@ -335,6 +340,7 @@
        ControlPlaneIp: {get_attr: [NovaCompute, networks, ctlplane, 0]}
        InternalApiIpSubnet: {get_attr: [InternalApiPort, ip_subnet]}
@@ -32,30 +32,34 @@ diff -Naur /home/stack/templates/compute.yaml /home/stack/templates-net/compute.
      description: IP address of the server in the tenant network
      value: {get_attr: [TenantPort, ip_address]}
 diff -Naur /home/stack/templates/environments/network-isolation.yaml /home/stack/templates-net/environments/network-isolation.yaml
---- /home/stack/templates/environments/network-isolation.yaml	2016-04-19 20:14:53.392052557 -0400
-+++ /home/stack/templates-net/environments/network-isolation.yaml	2016-04-19 20:18:36.675573120 -0400
-@@ -26,6 +26,7 @@
-   # Port assignments for the compute role
+--- /home/stack/templates/environments/network-isolation.yaml	2016-07-27 15:38:05.483477890 -0400
++++ /home/stack/templates-net/environments/network-isolation.yaml	2016-07-27 15:41:45.894182207 -0400
+@@ -27,7 +27,8 @@
    OS::TripleO::Compute::Ports::InternalApiPort: ../network/ports/internal_api.yaml
    OS::TripleO::Compute::Ports::StoragePort: ../network/ports/storage.yaml
-+  OS::TripleO::Compute::Ports::StorageMgmtPort: ../network/ports/storage_mgmt.yaml
    OS::TripleO::Compute::Ports::TenantPort: ../network/ports/tenant.yaml
- 
+-
++  OS::TripleO::Compute::Ports::StorageMgmtPort: ../network/ports/storage_mgmt.yaml
++  
    # Port assignments for the ceph storage role
+   OS::TripleO::CephStorage::Ports::StoragePort: ../network/ports/storage.yaml
+   OS::TripleO::CephStorage::Ports::StorageMgmtPort: ../network/ports/storage_mgmt.yaml
 diff -Naur /home/stack/templates/overcloud-resource-registry-puppet.yaml /home/stack/templates-net/overcloud-resource-registry-puppet.yaml
---- /home/stack/templates/overcloud-resource-registry-puppet.yaml	2016-04-19 20:14:53.396052567 -0400
-+++ /home/stack/templates-net/overcloud-resource-registry-puppet.yaml	2016-04-19 20:19:29.907696592 -0400
-@@ -86,6 +86,7 @@
-   # Port assignments for the compute role
+--- /home/stack/templates/overcloud-resource-registry-puppet.yaml	2016-07-27 15:38:05.489477909 -0400
++++ /home/stack/templates-net/overcloud-resource-registry-puppet.yaml	2016-07-27 15:42:40.205355756 -0400
+@@ -87,7 +87,8 @@
    OS::TripleO::Compute::Ports::InternalApiPort: network/ports/noop.yaml
    OS::TripleO::Compute::Ports::StoragePort: network/ports/noop.yaml
-+  OS::TripleO::Compute::Ports::StorageMgmtPort: network/ports/noop.yaml
    OS::TripleO::Compute::Ports::TenantPort: network/ports/noop.yaml
- 
+-
++  OS::TripleO::Compute::Ports::StorageMgmtPort: network/ports/noop.yaml
++  
    # Port assignments for the ceph storage role
+   OS::TripleO::CephStorage::Ports::StoragePort: network/ports/noop.yaml
+   OS::TripleO::CephStorage::Ports::StorageMgmtPort: network/ports/noop.yaml
 diff -Naur /home/stack/templates/puppet/compute-puppet.yaml /home/stack/templates-net/puppet/compute-puppet.yaml
---- /home/stack/templates/puppet/compute-puppet.yaml	2016-04-19 20:14:53.397052569 -0400
-+++ /home/stack/templates-net/puppet/compute-puppet.yaml	2016-04-19 20:23:20.243230854 -0400
+--- /home/stack/templates/puppet/compute-puppet.yaml	2016-07-27 15:38:05.489477909 -0400
++++ /home/stack/templates-net/puppet/compute-puppet.yaml	2016-07-27 15:39:15.368701207 -0400
 @@ -325,6 +325,11 @@
      properties:
        ControlPlaneIP: {get_attr: [NovaCompute, networks, ctlplane, 0]}
@@ -64,7 +68,7 @@ diff -Naur /home/stack/templates/puppet/compute-puppet.yaml /home/stack/template
 +    type: OS::TripleO::Compute::Ports::StorageMgmtPort
 +    properties:
 +      ControlPlaneIP: {get_attr: [NovaCompute, networks, ctlplane, 0]}
-+
++      
    TenantPort:
      type: OS::TripleO::Compute::Ports::TenantPort
      properties:
