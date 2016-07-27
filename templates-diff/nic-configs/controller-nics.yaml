@@ -142,9 +142,14 @@ resources:
               use_dhcp: false
               defroute: false
             -
+              type: interface
+              name: em2
+              use_dhcp: false
+              mtu: 9000
+            -
               type: vlan
               device: em2
-              mtu: 1500
+              mtu: 9000
               use_dhcp: false
               vlan_id: {get_param: StorageMgmtNetworkVlanID}
               addresses:
@@ -153,7 +158,7 @@ resources:
             -
               type: vlan
               device: em2
-              mtu: 1500
+              mtu: 9000
               use_dhcp: false
               vlan_id: {get_param: StorageNetworkVlanID}              
               addresses:
