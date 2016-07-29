@@ -1,0 +1,2 @@
+parameter_defaults:
+  RabbitFDLimit: '65436'
