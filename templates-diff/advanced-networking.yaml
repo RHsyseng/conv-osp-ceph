@@ -16,22 +16,18 @@ resource_registry:
   OS::TripleO::Network::Ports::TenantVipPort: /home/stack/templates/network/ports/vip.yaml
   OS::TripleO::Network::Ports::RedisVipPort: /home/stack/templates/network/ports/vip.yaml
 
+  # Port assignments for the compute role
+  OS::TripleO::Compute::Ports::InternalApiPort: /home/stack/templates/network/ports/internal_api.yaml
+  OS::TripleO::Compute::Ports::StoragePort: /home/stack/templates/network/ports/storage.yaml
+  OS::TripleO::Compute::Ports::StorageMgmtPort: /home/stack/templates/network/ports/storage_mgmt.yaml
+  OS::TripleO::Compute::Ports::TenantPort: /home/stack/templates/network/ports/tenant.yaml
+
   # Port assignments for the controller role
   OS::TripleO::Controller::Ports::ExternalPort: /home/stack/templates/network/ports/external.yaml
   OS::TripleO::Controller::Ports::InternalApiPort: /home/stack/templates/network/ports/internal_api.yaml
   OS::TripleO::Controller::Ports::StoragePort: /home/stack/templates/network/ports/storage.yaml
   OS::TripleO::Controller::Ports::StorageMgmtPort: /home/stack/templates/network/ports/storage_mgmt.yaml
   OS::TripleO::Controller::Ports::TenantPort: /home/stack/templates/network/ports/tenant.yaml
-
-  # Port assignments for the compute role
-  OS::TripleO::Compute::Ports::InternalApiPort: /home/stack/templates/network/ports/internal_api.yaml
-  OS::TripleO::Compute::Ports::StoragePort: /home/stack/templates/network/ports/storage.yaml
-  OS::TripleO::Compute::Ports::StorageMgmtPort: /home/stack/templates/network/ports/storage_mgmt.yaml
-  OS::TripleO::Compute::Ports::TenantPort: /home/stack/templates/network/ports/tenant.yaml
-  
-  # Port assignments for the ceph storage role
-  OS::TripleO::CephStorage::Ports::StoragePort: /home/stack/templates/network/ports/storage.yaml
-  OS::TripleO::CephStorage::Ports::StorageMgmtPort: /home/stack/templates/network/ports/storage_mgmt.yaml
 
   # Port assignments for service virtual IPs for the controller role
   OS::TripleO::Controller::Ports::RedisVipPort: /home/stack/templates/network/ports/vip.yaml
