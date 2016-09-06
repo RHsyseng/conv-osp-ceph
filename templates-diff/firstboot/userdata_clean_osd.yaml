@@ -22,12 +22,13 @@ resources:
       config: |
         #!/usr/bin/env bash
         {
-        for x in b c d e f g h i j k m n o; do
-            if [ -b /dev/sd$x ]
-            then
-                sgdisk -z /dev/sd$x; 
+        if [[ ! $HOSTNAME =~ "controller" ]]; then
+          for x in $(echo {b..o}); do 
+            if [ -b /dev/sd$x ]; then 
+              sgdisk -Z /dev/sd$x
             fi
-        done 
+          done
+        fi        
         } 2>&1 > /root/clean_osd_heat_output.txt 
 
 outputs:
