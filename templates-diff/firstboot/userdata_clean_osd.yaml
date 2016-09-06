@@ -23,7 +23,7 @@ resources:
         #!/usr/bin/env bash
         {
         if [[ ! $HOSTNAME =~ "controller" ]]; then
-          for x in $(echo {b..o}); do 
+          for x in $(echo {a..o}); do 
             if [ -b /dev/sd$x ]; then 
               sgdisk -Z /dev/sd$x
             fi
