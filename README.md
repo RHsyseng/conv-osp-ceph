@@ -27,7 +27,8 @@ Choose a branch that suits what you're trying to deploy; don't just
 use Master. For example:
 
 - osp7_ceph1.3 (tested May 2016)
-- osp8_ceph1.3 (in development)
+- osp8_ceph1.3 (tested Aug 2016)
+- osp9_ceph2 (in development)
 
 ## Disclaimer
 
