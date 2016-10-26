@@ -1,6 +1,6 @@
 # Converged OpenStack and Ceph
 
-Scripts and Templates to deploy OpenStack with Nova Computes and Ceph-OSDs running on the same server using OSP-Director and Ceph-Ansible.
+Scripts and Templates to deploy OpenStack with Nova Computes and Ceph-OSDs running on the same server using OSP-Director and Ceph-Ansible for Red Hat OpenStack platform versions 7 and 8. For version 10 see https://github.com/RHsyseng/hci. 
 
 ## Usage Outline
 
